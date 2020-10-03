@@ -1,8 +1,8 @@
-##Step 1 :
+##Step 1 
 npm install
-##Step 2 :
+##Step 2 
 cd store-locator/
-##Step 3:
+##Step 3
 npm install
 ##Step 4 : run frontend server
 npm run serve
