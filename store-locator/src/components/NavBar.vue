@@ -65,7 +65,7 @@
 
                                     <li class="d-none d-xl-block">
                                         <div class="form-box f-right" style="margin-top: 25px;">
-                                            <input type="text" @model="textstore" v-on:keyup="searchStore" name="Search" placeholder="Search">
+                                            <input type="text" v-model="textstore"  v-on:keyup.enter="searchStore" name="Search" placeholder="Search">
                                             <div class="search-icon">
                                                 <i class="fa fa-search" aria-hidden="true"></i>
                                             </div>
@@ -84,11 +84,11 @@
                                             <p>Categories</p>
                                         </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item" href="#" >Clothes</a>
-                                                <a class="dropdown-item" href="#">Electronic</a>
-                                                <a class="dropdown-item" href="#">Furniture</a>
-                                                <a class="dropdown-item" href="#">SecondHand Product</a>
-                                                <a class="dropdown-item" href="#">Utensil</a>
+                                                <a class="dropdown-item" @click="updateCategory('clothing')" >Clothes</a>
+                                                <a class="dropdown-item" @click="updateCategory('electronic')" >Electronic</a>
+                                                <a class="dropdown-item" @click="updateCategory('furniture')">Furniture</a>
+                                                <a class="dropdown-item" @click="updateCategory('second-hand-product')">SecondHand Product</a>
+                                                <a class="dropdown-item" @click="updateCategory('fitness')">Fitness</a>
                                                 <!-- <a class="dropdown-item" href="#">Stationary</a>          
                                           <a class="dropdown-item" href="#">Jewelry</a>
                                           <a class="dropdown-item" href="#">Technology</a>
@@ -142,21 +142,26 @@
 </template>
 
 <script>
-import Service from '../Service'
+import Service from '../Service';
+// import Service from '../Service'
 export default {
     data() {
         return {
             textstore : '',
+            cat: "clothing"
         }
     },
 
-    method:{
-        getStore(col_name){
-            Service.getCategory(col_name)
+    methods:{
+        updateCategory(value) {
+            this.cat = value
+            this.$root.$emit('changeCategory', value);
         },
-        searchStore(){
-            Service.searchStore(this.textstore)
-
+        async searchStore(){
+            const store = await Service.searchStore(this.cat, this.textstore)
+            console.log(store)
+            this.$root.$emit('getSearch',store)
+            
         }
 
     },
@@ -167,6 +172,5 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+
 

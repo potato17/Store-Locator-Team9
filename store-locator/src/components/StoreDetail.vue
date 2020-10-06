@@ -1,5 +1,7 @@
 <template>
+
   <div>
+    <NavBar/>
         <main class="container1">
                 <!-- Left Column  -->
                 <div class="left-column">
@@ -11,8 +13,9 @@
                 <div class="middle-column">
 
                     <!-- Product Description -->
-                    <div class="product-description">
-                        <h1>Shop Name</h1>
+
+                   <div class="product-description"> <!-- v-bind:key="arr_.id" -->
+                        <h1>Shop Name: {{arr.store_name}}</h1>
                         <h3>Rating: </h3>
                         <div class="rate">
                             <input type="radio" id="star5" name="rate" value="5" />
@@ -41,8 +44,8 @@
                 <!--Right Column-->
                 <div class="right-column">
                     <h2>Direct Me!</h2>
-                    <img src="assets/image/map.png">
-                    <h3>Store Address: Aeon Mall2, 1003, Phnom Penh.</h3>
+                    <!-- <img src="assets/image/map.png"> -->
+                    <h3>Store Address: {{ arr.location }}</h3>
                 </div>
 
             </main>
@@ -50,15 +53,28 @@
 </template>
 
 <script>
+import Service from "../Service";
+import NavBar from"./NavBar";
+
 export default {
+  data() {
+    return {
+      arr: [],
+    }
+  },
+  mounted(){
+    this.getDetail()
+  },
+  methods: {
+    getDetail(id){
+      this.arr = Service.findDetail(id)
+    }
+  },
   name: 'StoreDetail',
+  components:{NavBar},
   props: {
     msg: String
-  }
+  },
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-
-</style>
