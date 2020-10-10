@@ -44,7 +44,7 @@
                 <!--Right Column-->
                 <div class="right-column">
                     <h2>Direct Me!</h2>
-                    <!-- <img src="assets/image/map.png"> -->
+                    <img src="assets/image/map.png">
                     <h3>Store Address: {{ arr.location }}</h3>
                 </div>
 
