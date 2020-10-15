@@ -12,14 +12,13 @@ app.use(bodyParser.json());
 
 //Routes
 app.use('/store/category', storeRouter);
+// if (process.env.NODE_ENV === 'production') {
+app.use(express.static(path.join(__dirname, '/public/')));
 
-if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, '/public/')));
-
-    app.get('/.*/', (req, res) => {
-        res.sendFile(path.join(__dirname, '/public/index.html'));
-    });
-}
+app.get('/.*/', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/index.html'));
+});
+// }
 
 //Connect to Database
 mongoose.connect(
